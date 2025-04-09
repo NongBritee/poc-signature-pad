@@ -18,16 +18,19 @@ export default function Home() {
   const [url, setUrl] = useState(null);
 
   const onClear = () => {
+    if (sigCanvas.current == null) {
+      console.log('sigCanvas is null');
+    }
     sigCanvas.current.clear();
   };
   const onSave = () => {
-    setUrl(sigCanvas.current.getTrimmedCanvas().toDataURL('image/png'));
+    setUrl(sigCanvas.current.toDataURL('image/png'));
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <SignatureCanvas ref={sigCanvas} penColor='black'
-        canvasProps={{ minWidth: 200, maxWidth: 500, width: 500, height: 200, className: 'sigCanvas border-1 bg-white' }} />
+        canvasProps={{ width: 500, height: 200, className: 'sigCanvas border-1 bg-white' }} />
       <div className="flex flex-row justify-center items-center">
         {/* reset button */}
         <button className="m-4 bg-blue-500 text-white px-4 py-2 rounded" onClick={onClear}>
